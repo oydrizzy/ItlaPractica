@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Factorial</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Calculador Factorial</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="numero">Número:</label>
+                        <input type="number" class="form-control" id="numero" placeholder="Introduce un número">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" onclick="calcularFactorial()">Calcular Factorial</button>
+                    <p id="resultado" class="font-weight-bold mt-3"></p>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function calcularFactorial() {
+            const numero = parseInt(document.getElementById("numero").value);
+
+            if (isNaN(numero)) {
+                document.getElementById("resultado").textContent = "Introduce un número válido.";
+                return;
+            }
+	
+            if (numero < 0) {
+                document.getElementById("resultado").textContent = "El factorial del número negativo no está definido.";
+                return;
+            }
+
+            let factorial = 1;
+            for (let i = 2; i <= numero; i++) {
+                factorial *= i;
+            }
+
+            document.getElementById("resultado").textContent = "El factorial de " + numero + " es: " + factorial;
+        }
+    </script>
+</body>
+</html>
