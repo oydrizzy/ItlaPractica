@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculador de tasas de Cambio</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Calculador de tasas de Cambio</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="moneda">Moneda:</label>
+                        <select class="form-control" id="moneda">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto">Monto:</label>
+                        <input type="number" class="form-control" id="monto" placeholder="Introduce el monto">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" onclick="calcularTotal()">Calcular</button>
+                    <p id="total" class="font-weight-bold mt-3"></p>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function calcularTotal() {
+            const tasasDeCambio = {
+                "USD": 58.63, // DOLAR
+                "EUR": 63.18, // EURO
+                "GBP": 73.89, // LIBRA ESTERLINA
+                "JPY": 0.39 // YEN
+            };
+            const moneda = document.getElementById("moneda").value;
+            const monto = parseFloat(document.getElementById("monto").value);
+            const tasaDeCambio = tasasDeCambio[moneda];
+            const total = monto * tasaDeCambio;
+            document.getElementById("total").textContent = "Total en DOP: " + total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
