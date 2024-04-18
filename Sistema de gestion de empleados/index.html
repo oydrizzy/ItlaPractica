@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gestión de Empleados</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  h2 {
+    color: #333;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .input-group {
+    margin-bottom: 10px;
+  }
+  .btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
 
+<div class="container">
+  <h2>Sistema de Gestión de Empleados</h2>
+  <div class="input-group">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+    <input type="text" id="apellido" placeholder="Apellido" required>
+    <input type="number" id="salario" placeholder="Salario" required>
+    <input type="text" id="cargo" placeholder="Cargo" required>
+    <button onclick="agregarEmpleado()" class="btn">Agregar Empleado</button>
+  </div>
+  <div id="listaEmpleados"></div>
+  <div id="totalSalarios"></div>
+</div>
+
+<script>
+  class Empleado {
+    constructor(nombre, apellido, salario, cargo) {
+      this.nombre = nombre;
+      this.apellido = apellido;
+      this.salario = salario;
+      this.cargo = cargo;
+    }
+
+    mostrarInformacion() {
+      return `${this.nombre} ${this.apellido}, Cargo: ${this.cargo}, Salario: ${this.salario}`;
+    }
+  }
+
+  class Empresa {
+    constructor() {
+      this.empleados = [];
+    }
+    agregarEmpleado(empleado) {
+      this.empleados.push(empleado);
+    }
+    listarEmpleados() {
+      let listaHTML = "<h3>Lista de Empleados:</h3>";
+      this.empleados.forEach(empleado => {
+        listaHTML += `<p>${empleado.mostrarInformacion()}</p>`;
+      });
+      return listaHTML;
+    }
+
+    // Método para calcular el total de salarios
+    calcularTotalSalarios() {
+      let totalSalarios = 0;
+      this.empleados.forEach(empleado => {
+        totalSalarios += empleado.salario;
+      });
+      return `<h3>Total de Salarios: ${totalSalarios}</h3>`;
+    }
+  }
+  const empresa = new Empresa();
+
+  function agregarEmpleado() {
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const salario = parseFloat(document.getElementById("salario").value);
+    const cargo = document.getElementById("cargo").value;
+
+    if (nombre && apellido && salario && cargo) {
+      const empleado = new Empleado(nombre, apellido, salario, cargo);
+      empresa.agregarEmpleado(empleado);
+      document.getElementById("listaEmpleados").innerHTML = empresa.listarEmpleados();
+      document.getElementById("totalSalarios").innerHTML = empresa.calcularTotalSalarios();
+      document.getElementById("nombre").value = "";
+      document.getElementById("apellido").value = "";
+      document.getElementById("salario").value = "";
+      document.getElementById("cargo").value = "";
+    } else {
+      alert("Por favor completa todos los campos.");
+    }
+  }
+</script>
+
+</body>
+</html>
