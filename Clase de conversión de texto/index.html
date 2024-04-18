@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformador de Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #fff;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transformador de Texto</h1>
+        <input type="text" id="texto" placeholder="Introduce un texto">
+        <button onclick="transformarTexto()">Transformar</button>
+        <div id="resultado"></div>
+    </div>
 
+    <script>
+        class TransformadorTexto {
+            constructor(texto) {
+                this.texto = texto;
+            }
+
+            obtenerCantidadCaracteres() {
+                return this.texto.length;
+            }
+
+            convertirAMayusculas() {
+                return this.texto.toUpperCase();
+            }
+
+            convertirAMinusculas() {
+                return this.texto.toLowerCase();
+            }
+
+            esPalindromo() {
+                const textoSinEspacios = this.texto.replace(/\s/g, "").toLowerCase();
+                return textoSinEspacios === textoSinEspacios.split("").reverse().join("");
+            }
+        }
+
+        function transformarTexto() {
+            const texto = document.getElementById("texto").value;
+            const transformador = new TransformadorTexto(texto);
+
+            const resultado = document.getElementById("resultado");
+            resultado.innerHTML = `
+                <p>Cantidad de caracteres: ${transformador.obtenerCantidadCaracteres()}</p>
+                <p>En mayúsculas: ${transformador.convertirAMayusculas()}</p>
+                <p>En minúsculas: ${transformador.convertirAMinusculas()}</p>
+                <p>¿Es palíndromo?: ${transformador.esPalindromo() ? 'Sí' : 'No'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
