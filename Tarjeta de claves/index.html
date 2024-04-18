@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar y Validar Números</title>
+</head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+<body>
+<center>
+    <h1>Generar y Validar Números</h1>
+	<hr>
+</br>
+    <button id="generateButton">Generar Números</button>
+    <button id="validateButton">Validar Número Aleatorio</button>
+</center>
+    <script>
+        function pad(numero, longitud) {
+            var str = numero.toString();
+            while (str.length < longitud) {
+                str = "0" + str;
+            }
+            return str;
+        }
+        function generarNumeros() {
+            var numeros = new Set();
+            while (numeros.size < 40) {
+                var numero = pad(Math.floor(Math.random() * 10000), 4); 
+                numeros.add(numero);
+            }
+            localStorage.setItem("numeros", JSON.stringify(Array.from(numeros)));
+            alert("Se han generado y guardado 40 números de manera permanente.");
+        }
+
+        function validarNumero(numero) {
+            var numeros = JSON.parse(localStorage.getItem("numeros")) || [];
+            if (numeros.includes(numero)) {
+                alert("El número es válido!");
+            } else {
+                alert("El número es inválido.");
+            }
+        }
+        function validarNumeroAleatorio() {
+            var numeros = JSON.parse(localStorage.getItem("numeros")) || [];
+            var numeroAleatorio = numeros[Math.floor(Math.random() * numeros.length)];
+            var numeroIntroducido = prompt("Entre el número 40: " + numeroAleatorio);
+            if (numeroIntroducido !== null) {
+                validarNumero(numeroIntroducido);
+            }
+        }
+
+        document.getElementById("generateButton").addEventListener("click", generarNumeros);
+        document.getElementById("validateButton").addEventListener("click", validarNumeroAleatorio);
+    </script>
+</body>
+</html>
 
