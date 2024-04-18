@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Fórmula General</title>
+    <style>
+        body {
+            font-family: Didot, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 100px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 3px;
+            border: none;
+            background-color: #363736;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #363736;
+        }
+        p {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Fórmula General</h2>
+        <input type="number" id="a" placeholder="a">
+        <input type="number" id="b" placeholder="b">
+        <input type="number" id="c" placeholder="c">
+        <button onclick="calcular()">Calcular</button>
+        <p id="resultado"></p>
+    </div>
 
+    <script>
+    function calcular() {
+        var numero_a = parseFloat(document.getElementById('a').value);
+        var numero_b = parseFloat(document.getElementById('b').value);
+        var numero_c = parseFloat(document.getElementById('c').value);
+
+        var discriminante = numero_b * numero_b - 4 * numero_a * numero_c;
+
+        if (discriminante > 0) {
+            var x1 = (-numero_b + Math.sqrt(discriminante)) / (2 * numero_a);
+            var x2 = (-numero_b - Math.sqrt(discriminante)) / (2 * numero_a);
+            document.getElementById('resultado').innerText = 'x1 = ' + x1 + ', x2 = ' + x2;
+        } else if (discriminante === 0) {
+            var x = -numero_b / (2 * numero_a);
+            document.getElementById('resultado').innerText = 'x = ' + x;
+        } else {
+            document.getElementById('resultado').innerText = 'No hay soluciones reales';
+        }
+    }
+</script>
+
+</body>
+</html>
